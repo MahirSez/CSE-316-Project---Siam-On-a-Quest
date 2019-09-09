@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# AvrStudio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Siam On a Quest", "Siam On a Quest\Siam On a Quest.cproj", "{62ABD9F2-BE45-44A9-A554-7FABCF18D6FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62ABD9F2-BE45-44A9-A554-7FABCF18D6FC}.Debug|AVR.ActiveCfg = Debug|AVR
+		{62ABD9F2-BE45-44A9-A554-7FABCF18D6FC}.Debug|AVR.Build.0 = Debug|AVR
+		{62ABD9F2-BE45-44A9-A554-7FABCF18D6FC}.Release|AVR.ActiveCfg = Release|AVR
+		{62ABD9F2-BE45-44A9-A554-7FABCF18D6FC}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
