@@ -6,15 +6,15 @@
 
 
 #define INF 1e9
-#define GAME_DELAY_VAL 10 // more delay_val , more delay
-#define JUMP_DELAY_VAL 5
-#define JUMP_HEIGHT 5 // more JUMP_LHEIGHT more height
+#define GAME_DELAY_VAL 4 // more delay_val , more delay
+#define JUMP_DELAY_VAL 2
+#define JUMP_HEIGHT 6 // more JUMP_LHEIGHT more height
 #define SIAM_HEIGHT 3
 
 
 int pattern[16][16] ;
 
-const int totGreenBar = 180;
+const int totGreenBar = 100;
 int nowCol;
 int game_delay , jump_delay;
 int currentGreenBar;
@@ -52,7 +52,7 @@ void printScreen() {
 				enableGreen();
 				
 			}
-			else if( pattern[r][c] == 2 ){
+			else if( pattern[r][c] >= 2 ){
 				disableGreen();
 				PORTD = (c);
 				enableRed();
@@ -94,13 +94,22 @@ void printRed() {
 	}
 }
 
+void buzzerSound() {
+	
+	
+	PORTB |= 0x04;
+	_delay_ms(100);
+	PORTB  = 0;
+}
+
 struct greenBars {
 	int len , ro , col;
-} bars[180];
+} bars[100];
 
 struct Player {	
-	int baseRo , baseCol , jmpLeft , alive;
-} siam;
+	int baseRo , baseCol , jmpLeft ;
+	int lifeLeft;
+} siam , enemy[100];
 
 
 void setGreenBars() {
@@ -110,24 +119,40 @@ void setGreenBars() {
 		else if(i %3 == 1 ) bars[i].ro = 10;
 		else if(i %3 == 2 ) bars[i].ro = 6;
 		
-		if( i > 0  ) bars[i].col = bars[i-1].col + bars[i-1].len ;
+		if( i > 0  && i %3 == 1) bars[i].col = bars[i-1].col + bars[i-1].len  ;
+		else if( i > 0 && i%3 == 2) bars[i].col = bars[i-1].col + bars[i-1].len  ;
+		else if(i > 0 ) bars[i].col = bars[i-1].col + bars[i-1].len  ;
 		
-		if(i %3 == 0 ) bars[i].len = 5;
-		else if(i %3 == 1 ) bars[i].len = 3;
-		else if(i %3 == 2 ) bars[i].len = 5;
+		if(i %3 == 0 ) bars[i].len = 15;
+		else if(i %3 == 1 ) bars[i].len = 10;
+		else if(i %3 == 2 ) bars[i].len = 10;
 		
+	}
+}
+
+
+void setEnemies() {
+	
+	for(int i =0 ; i < totGreenBar ; i++ ) {
+		
+		enemy[i].baseRo = bars[i].ro-1;
+		enemy[i].baseCol = bars[i].col + bars[i].len - 5;
+		enemy[i].lifeLeft = 1;
+		enemy[i].jmpLeft = 0;
 	}
 }
 
 void setSiam() {
 	
-	siam.alive = 1;
-	siam.baseRo = bars[0].ro - 1;
-	siam.baseCol = bars[0].col + 1;
+	siam.baseRo = 2;
+	siam.baseCol = 1;
 	siam.jmpLeft = 0;
+	siam.lifeLeft = 5;
 }
 
-int insideFrame(int barID) {
+
+
+int barInsideFrame(int barID) {
 	
 	int frm = bars[barID].col;
 	int to = frm + bars[barID].len;
@@ -143,7 +168,7 @@ int insideFrame(int barID) {
 }
 
 
-void setOnPatternArray(int barID) {
+void setOnPatternArrayBar(int barID) {
 	
 	int barRo = bars[barID].ro;
 	int barBeginCol = bars[barID].col;
@@ -169,35 +194,90 @@ void UpdateGreenBars() {
 	currentGreenBar  = INF;
 	for(int i = tmp ; i < tmp + 5 ; i++  ) {
 	
-		if(insideFrame(i) )	 {
+		if(barInsideFrame(i) )	 {
 			
 			if(i < currentGreenBar)  currentGreenBar = i;
-			setOnPatternArray(i);
+			setOnPatternArrayBar(i);
 		}
 	}
+}
+
+int enemyInsideFrame(int enemyID) {
+
+	int leftFrame = nowCol;
+	int rightFrame = nowCol + 15;
+
+	if(enemy[enemyID].baseCol >= leftFrame && enemy[enemyID].baseCol <= rightFrame) return 1;
+	if(enemy[enemyID].baseCol + 1 >= leftFrame && enemy[enemyID].baseCol + 1 <= rightFrame) return 1;
+
+	return 0;
+}
+
+
+void setOnPatternArrayEnemy(int enemyID) {
 	
+	
+	int enemyRo = enemy[enemyID].baseRo;
+	
+	int printFrm = nowCol;
+	if( enemy[enemyID].baseCol > printFrm)  printFrm = enemy[enemyID].baseCol;
+	
+	int printTo = nowCol + 15;
+	if(enemy[enemyID].baseCol + 1 < printTo  ) printTo = enemy[enemyID].baseCol + 1;
+	
+	
+	for(int i = printFrm ; i <= printTo ; i++ ) {
+		pattern[enemyRo][i - nowCol] = 3;
+		pattern[enemyRo-1][i - nowCol] = 3;
+	}
+}
+
+
+void UpdateEnemies() {
+	
+	
+	for(int i = currentGreenBar  ; i< currentGreenBar + 5 ; i++ ) {
+		if(enemyInsideFrame(i)) {
+			setOnPatternArrayEnemy(i);
+		}
+	}
 }
 
 
 int right_move_condition_found() {
 	
-	if(siam.alive == 0 ) return 0;
+	if(siam.lifeLeft == 0 ) return 0;
 	
 	int ret = 1;
 	for(int i =0 ; i < SIAM_HEIGHT ; i++ ) {
-		if(pattern[siam.baseRo-i][siam.baseCol + 1] == 1 ) ret = 0;
+		if(pattern[siam.baseRo-i][siam.baseCol + 1] ) ret = 0;
 	}
 	
 	if( ret == 0 )  return 0;
 	
-	return  (bit_is_set(PINB, 0) && game_delay == 1 );
+	return  (bit_is_set(PINB, 0) && game_delay == 0 );
 }
 
+
+
+void recoverSiam() {
+	
+	
+	siam.baseRo = 2;
+	//siam.baseCol = bars[currentGreenBar].col + 1;
+	siam.jmpLeft = 0;
+}
+
+void killSiam() {
+	
+	siam.lifeLeft--;
+	buzzerSound();
+}
 
 void jumpCheckSiam() {
 	
 	
-	if(jump_delay != 1) return;
+	if(jump_delay != 0) return;
 	
 	if(siam.jmpLeft > 0) {
 		siam.baseRo--;
@@ -213,18 +293,26 @@ void jumpCheckSiam() {
 	else {
 		if(pattern[siam.baseRo+1][siam.baseCol] == 0) siam.baseRo++;
 	}	
-	if(siam.baseRo > 15) siam.baseRo = 15; //	DELETE THIS
 	if(siam.baseRo - SIAM_HEIGHT + 1 < 0 ) siam.baseRo = SIAM_HEIGHT -1;
+	
+	if(siam.baseRo >= 15) {
+		killSiam();
+		recoverSiam();
+	}		
 	
 }
 void UpdateSiam() {
 	
-	if(siam.alive == 0) return;
+	if(siam.lifeLeft == 0) return;
 	
 	jumpCheckSiam();
 	for(int i =0 ; i < SIAM_HEIGHT; i ++ ) {
 		
 		pattern[siam.baseRo-i][siam.baseCol] = 2;
+	}
+	
+	for(int i = 0 ; i < siam.lifeLeft ; i++) {
+		pattern[0][15-i] = 2;
 	}
 }
 
@@ -247,8 +335,7 @@ void portInit() {
 
 int jump_condition_found() {
 	
-	if(siam.alive && pattern[siam.baseRo + 1][siam.baseCol] == 1 && bit_is_set(PINB, 1) && jump_delay == 1 ) return 1;
-	if(bit_is_set(PINB, 1) && jump_delay == 1 &&  siam.baseRo == 15) return 1; //DELETE THIS
+	if(siam.lifeLeft > 0 && pattern[siam.baseRo + 1][siam.baseCol]  && bit_is_set(PINB, 1) && jump_delay == 0 ) return 1;
 	return 0;
 }
 
@@ -258,7 +345,7 @@ void jumpUp() {
 
 
 void moveRight() { 
-	nowCol++;
+	nowCol++;	
 }
 
 
@@ -268,6 +355,7 @@ int main()
 	portInit();	
 	
 	setGreenBars();
+	setEnemies();
 	setSiam();
 	
 	while(1) {
@@ -277,14 +365,18 @@ int main()
 		jump_delay %= JUMP_DELAY_VAL;
 		
 		UpdateGreenBars();
+		UpdateEnemies();
 		UpdateSiam();//ALWAYS UPDATE SIAM AFTER GREEN BARS
 		
 		printScreen();
+		
+		if(siam.lifeLeft == 0 ) continue;
 		
 		if(right_move_condition_found()) {
 			moveRight();
 		}
 		printScreen();
+
 		if(jump_condition_found()) {
 			jumpUp();
 		}
@@ -297,8 +389,8 @@ int main()
 }
 
 
-/*
 
+/*
 //LED TEST CODE
 
 int main()
@@ -325,10 +417,11 @@ int main()
 					disableRed();
 					PORTD = (c<<4);
 					enableGreen();
-				}			
+				}		
+					
 				cnt++;
 				cnt %= 512;
-				_delay_ms(20);
+				//_delay_ms(20);
 			}
 		}
 	}
