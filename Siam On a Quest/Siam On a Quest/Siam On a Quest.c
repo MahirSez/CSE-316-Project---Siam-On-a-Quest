@@ -15,6 +15,7 @@
 int pattern[16][16] ;
 
 const int totGreenBar = 100;
+const int totBullet = 5;
 int nowCol;
 int game_delay , jump_delay;
 int currentGreenBar;
@@ -62,7 +63,6 @@ void printScreen() {
 		}
 		disableGreen();
 	}
-	//disableGreen();
 }
 
 void printErrorBar() {
@@ -111,7 +111,10 @@ struct Player {
 	int lifeLeft;
 } siam , enemy[100];
 
-
+struct Bullet {
+	
+	int ro , col , alive;
+}bullet[5];
 void setGreenBars() {
 		
 	for(int i =0 ; i < totGreenBar ; i++ ) {
@@ -225,21 +228,80 @@ void setOnPatternArrayEnemy(int enemyID) {
 	int printTo = nowCol + 15;
 	if(enemy[enemyID].baseCol + 1 < printTo  ) printTo = enemy[enemyID].baseCol + 1;
 	
+	int safe = 1;
+	for(int i = printFrm ; i <= printTo ; i++ ) {
+		if(pattern[enemyRo][i - nowCol] == 4) safe = 0;
+		if(pattern[enemyRo-1][i - nowCol] == 4 ) safe = 0;
+	}
+	if(safe == 0 ) {
+		enemy[enemyID].lifeLeft = 0;
+		return ;
+	}
+	
+	/*if(pattern[enemyRo][printFrm-nowCol-1] == 2 || pattern[enemyRo-1][printFrm-nowCol-1] == 2) {
+		enemy[enemyID].lifeLeft = 0;
+		killSiam();
+		recoverSiam();
+		return ;
+	}
+	*/		
+	else if(pattern[enemyRo-2][printFrm-nowCol] == 2 || pattern[enemyRo-2][printTo-nowCol] == 2) {
+		enemy[enemyID].lifeLeft = 0;
+		return ;
+	}		
+	
 	
 	for(int i = printFrm ; i <= printTo ; i++ ) {
 		pattern[enemyRo][i - nowCol] = 3;
 		pattern[enemyRo-1][i - nowCol] = 3;
 	}
+	//pattern[enemyRo-1][printFrm-nowCol - 1] = 3;
 }
 
 
 void UpdateEnemies() {
 	
-	
 	for(int i = currentGreenBar  ; i< currentGreenBar + 5 ; i++ ) {
-		if(enemyInsideFrame(i)) {
+		if(enemy[i].lifeLeft && enemyInsideFrame(i)) {
 			setOnPatternArrayEnemy(i);
 		}
+	}
+}
+
+int bulletInsideFrame(int bulletID) {
+	
+	int leftFrame = nowCol;
+	int rightFrame = nowCol + 15;
+	
+	if(bullet[bulletID].col >=leftFrame && bullet[bulletID].col <= rightFrame ) return 1;
+	return 0;
+}
+
+
+void setOnPatternArrayBullet(int bulletID) {
+	int row = bullet[bulletID].ro;
+	int col = bullet[bulletID].col;
+	
+	pattern[row][col - nowCol] = 4;
+}
+
+
+void UpdateBullet() {
+	
+	for(int i =0 ; i < totBullet ; i++ ) {
+		
+		if(bullet[i].alive == 0 ) continue;
+		
+		//pattern[bullet[i].ro][bullet[i].col] = 0;
+		bullet[i].col++;
+		
+		if(bulletInsideFrame(i)) {
+			
+			setOnPatternArrayBullet(i);
+		}
+		else {
+			bullet[i].alive = 0;
+		}			
 	}
 }
 
@@ -258,6 +320,9 @@ int right_move_condition_found() {
 	return  (bit_is_set(PINB, 0) && game_delay == 0 );
 }
 
+int shoot_condition_found() {
+	return (bit_is_set(PINB , 3));
+}
 
 
 void recoverSiam() {
@@ -306,15 +371,37 @@ void UpdateSiam() {
 	if(siam.lifeLeft == 0) return;
 	
 	jumpCheckSiam();
+	/*
+	int ok = 1;
+	for(int i =0 ; i < SIAM_HEIGHT ; i++ ) {
+		
+		if(pattern[siam.baseRo-i][siam.baseCol+1] == 3) {
+			ok = 0;
+		}
+	}
+	
+	if(pattern[siam.baseRo+1][siam.baseCol] == 3) {
+		ok = 0;
+	}
+	
+	if(ok==0)  {
+		killSiam();
+		recoverSiam();
+	}
+	*/
+	
 	for(int i =0 ; i < SIAM_HEIGHT; i ++ ) {
 		
 		pattern[siam.baseRo-i][siam.baseCol] = 2;
 	}
 	
+	
 	for(int i = 0 ; i < siam.lifeLeft ; i++) {
 		pattern[0][15-i] = 2;
 	}
 }
+
+
 
 void portInit() {
 	
@@ -329,7 +416,7 @@ void portInit() {
 	DDRC = 0xFF;
 	
 	//PORTB -> b0 = input for left right navigation ; b1 =  input for jump
-	DDRB = 0b11111100;	
+	DDRB = 0b11110100;	
 }
 
 
@@ -349,6 +436,18 @@ void moveRight() {
 }
 
 
+
+void shoot() {
+	for(int i = 0 ; i < totBullet ; i++ ) {
+		if(bullet[i].alive ) continue;
+		bullet[i].alive = 1;
+		bullet[i].ro = siam.baseRo-1 ;
+		bullet[i].col = nowCol;
+		return;
+	}
+}
+
+
 int main()
 {
 	
@@ -365,8 +464,11 @@ int main()
 		jump_delay %= JUMP_DELAY_VAL;
 		
 		UpdateGreenBars();
+		UpdateBullet();
+		
+		UpdateSiam();//ALWAYS UPDATE SIAM & enemies AFTER GREEN BARS
 		UpdateEnemies();
-		UpdateSiam();//ALWAYS UPDATE SIAM AFTER GREEN BARS
+		
 		
 		printScreen();
 		
@@ -379,6 +481,12 @@ int main()
 
 		if(jump_condition_found()) {
 			jumpUp();
+		}
+		
+		printScreen();
+		
+		if(shoot_condition_found()) {
+			shoot();
 		}
 		
 		printScreen();

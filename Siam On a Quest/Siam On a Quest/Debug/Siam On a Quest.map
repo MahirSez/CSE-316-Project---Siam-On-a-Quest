@@ -15,6 +15,7 @@ Allocating common symbols
 Common symbol       size              file
 
 nowCol              0x2               Siam On a Quest.o
+bullet              0x1e              Siam On a Quest.o
 game_delay          0x2               Siam On a Quest.o
 siam                0x8               Siam On a Quest.o
 pattern             0x200             Siam On a Quest.o
@@ -133,7 +134,7 @@ LOAD c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.2
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xa20
+.text           0x00000000      0xcca
  *(.vectors)
  .vectors       0x00000000       0x54 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm32a.o
                 0x00000000                __vector_default
@@ -210,7 +211,7 @@ LOAD c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.2
                 0x0000008e                __vector_16
                 0x0000008e                __vector_18
                 0x0000008e                __vector_20
- .text          0x00000092      0x93c Siam On a Quest.o
+ .text          0x00000092      0xbe6 Siam On a Quest.o
                 0x00000092                enableRed
                 0x00000098                disableRed
                 0x0000009e                enableGreen
@@ -228,37 +229,42 @@ LOAD c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.2
                 0x0000044a                UpdateGreenBars
                 0x000004be                enemyInsideFrame
                 0x00000516                setOnPatternArrayEnemy
-                0x00000592                UpdateEnemies
-                0x000005d0                right_move_condition_found
-                0x000006aa                recoverSiam
-                0x000006c0                killSiam
-                0x000006d8                jumpCheckSiam
-                0x000007dc                UpdateSiam
-                0x0000088e                portInit
-                0x0000089c                jump_condition_found
-                0x0000090c                jumpUp
-                0x0000091a                moveRight
-                0x0000092e                main
- .text          0x000009ce        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_divmodhi4.o)
- .text          0x000009ce        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
- .text          0x000009ce        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_copy_data.o)
- .text          0x000009ce        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
- .text          0x000009ce        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
-                0x000009ce                . = ALIGN (0x2)
+                0x000006a4                UpdateEnemies
+                0x0000070a                bulletInsideFrame
+                0x00000750                setOnPatternArrayBullet
+                0x0000079c                UpdateBullet
+                0x000007f2                right_move_condition_found
+                0x000008cc                shoot_condition_found
+                0x000008da                recoverSiam
+                0x000008f0                killSiam
+                0x00000908                jumpCheckSiam
+                0x00000a0c                UpdateSiam
+                0x00000abe                portInit
+                0x00000acc                jump_condition_found
+                0x00000b3c                jumpUp
+                0x00000b4a                moveRight
+                0x00000b5e                shoot
+                0x00000bc4                main
+ .text          0x00000c78        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_divmodhi4.o)
+ .text          0x00000c78        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
+ .text          0x00000c78        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_copy_data.o)
+ .text          0x00000c78        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
+ .text          0x00000c78        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
+                0x00000c78                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x000009ce       0x26 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_divmodhi4.o)
-                0x000009ce                _div
-                0x000009ce                __divmodhi4
- .text.libgcc   0x000009f4        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x000009f4        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x000009f4        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
- .text.libgcc   0x000009f4       0x28 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
-                0x000009f4                __udivmodhi4
-                0x00000a1c                . = ALIGN (0x2)
+ .text.libgcc   0x00000c78       0x26 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_divmodhi4.o)
+                0x00000c78                _div
+                0x00000c78                __divmodhi4
+ .text.libgcc   0x00000c9e        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00000c9e        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000c9e        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000c9e       0x28 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
+                0x00000c9e                __udivmodhi4
+                0x00000cc6                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000a1c        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
-                0x00000a1c                _exit
-                0x00000a1c                exit
+ .fini9         0x00000cc6        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
+                0x00000cc6                _exit
+                0x00000cc6                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -277,60 +283,62 @@ LOAD c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.2
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000a1c        0x4 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000cc6        0x4 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000a20                _etext = .
+                0x00000cca                _etext = .
 
-.data           0x00800060        0x2 load address 0x00000a20
+.data           0x00800060        0x4 load address 0x00000cca
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm32a.o
- .data          0x00800060        0x2 Siam On a Quest.o
+ .data          0x00800060        0x4 Siam On a Quest.o
                 0x00800060                totGreenBar
- .data          0x00800062        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_divmodhi4.o)
- .data          0x00800062        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
- .data          0x00800062        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_copy_data.o)
- .data          0x00800062        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
- .data          0x00800062        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
+                0x00800062                totBullet
+ .data          0x00800064        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_divmodhi4.o)
+ .data          0x00800064        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
+ .data          0x00800064        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_copy_data.o)
+ .data          0x00800064        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
+ .data          0x00800064        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
  *(.data*)
  *(.rodata)
  *(.rodata*)
  *(.gnu.linkonce.d*)
-                0x00800062                . = ALIGN (0x2)
-                0x00800062                _edata = .
-                0x00800062                PROVIDE (__data_end, .)
+                0x00800064                . = ALIGN (0x2)
+                0x00800064                _edata = .
+                0x00800064                PROVIDE (__data_end, .)
 
-.bss            0x00800062      0x788
-                0x00800062                PROVIDE (__bss_start, .)
+.bss            0x00800064      0x7a6
+                0x00800064                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x00800062        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm32a.o
- .bss           0x00800062        0x0 Siam On a Quest.o
- .bss           0x00800062        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_divmodhi4.o)
- .bss           0x00800062        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
- .bss           0x00800062        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_copy_data.o)
- .bss           0x00800062        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
- .bss           0x00800062        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
+ .bss           0x00800064        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm32a.o
+ .bss           0x00800064        0x0 Siam On a Quest.o
+ .bss           0x00800064        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_divmodhi4.o)
+ .bss           0x00800064        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
+ .bss           0x00800064        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_copy_data.o)
+ .bss           0x00800064        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x00800064        0x0 c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
  *(.bss*)
  *(COMMON)
- COMMON         0x00800062      0x788 Siam On a Quest.o
-                0x00800062                nowCol
-                0x00800064                game_delay
-                0x00800066                siam
-                0x0080006e                pattern
-                0x0080026e                bars
-                0x008004c6                enemy
-                0x008007e6                jump_delay
-                0x008007e8                currentGreenBar
-                0x008007ea                PROVIDE (__bss_end, .)
-                0x00000a20                __data_load_start = LOADADDR (.data)
-                0x00000a22                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800064      0x7a6 Siam On a Quest.o
+                0x00800064                nowCol
+                0x00800066                bullet
+                0x00800084                game_delay
+                0x00800086                siam
+                0x0080008e                pattern
+                0x0080028e                bars
+                0x008004e6                enemy
+                0x00800806                jump_delay
+                0x00800808                currentGreenBar
+                0x0080080a                PROVIDE (__bss_end, .)
+                0x00000cca                __data_load_start = LOADADDR (.data)
+                0x00000cce                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008007ea        0x0
-                0x008007ea                PROVIDE (__noinit_start, .)
+.noinit         0x0080080a        0x0
+                0x0080080a                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x008007ea                PROVIDE (__noinit_end, .)
-                0x008007ea                _end = .
-                0x008007ea                PROVIDE (__heap_start, .)
+                0x0080080a                PROVIDE (__noinit_end, .)
+                0x0080080a                _end = .
+                0x0080080a                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -389,36 +397,36 @@ LOAD c:/program files (x86)/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.2
                 0x00000000       0x20 Siam On a Quest.o
 
 .debug_pubnames
-                0x00000000      0x266
+                0x00000000      0x2e6
  *(.debug_pubnames)
  .debug_pubnames
-                0x00000000      0x266 Siam On a Quest.o
+                0x00000000      0x2e6 Siam On a Quest.o
 
-.debug_info     0x00000000      0x87f
+.debug_info     0x00000000      0xa4a
  *(.debug_info)
- .debug_info    0x00000000      0x87f Siam On a Quest.o
+ .debug_info    0x00000000      0xa4a Siam On a Quest.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev   0x00000000      0x265
+.debug_abbrev   0x00000000      0x2bc
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x265 Siam On a Quest.o
+ .debug_abbrev  0x00000000      0x2bc Siam On a Quest.o
 
-.debug_line     0x00000000      0xa03
+.debug_line     0x00000000      0xbcd
  *(.debug_line)
- .debug_line    0x00000000      0xa03 Siam On a Quest.o
+ .debug_line    0x00000000      0xbcd Siam On a Quest.o
 
-.debug_frame    0x00000000      0x1d0
+.debug_frame    0x00000000      0x220
  *(.debug_frame)
- .debug_frame   0x00000000      0x1d0 Siam On a Quest.o
+ .debug_frame   0x00000000      0x220 Siam On a Quest.o
 
-.debug_str      0x00000000      0x375
+.debug_str      0x00000000      0x3ed
  *(.debug_str)
- .debug_str     0x00000000      0x375 Siam On a Quest.o
-                                0x3a9 (size before relaxing)
+ .debug_str     0x00000000      0x3ed Siam On a Quest.o
+                                0x428 (size before relaxing)
 
-.debug_loc      0x00000000      0x4b1
+.debug_loc      0x00000000      0x609
  *(.debug_loc)
- .debug_loc     0x00000000      0x4b1 Siam On a Quest.o
+ .debug_loc     0x00000000      0x609 Siam On a Quest.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -426,9 +434,9 @@ OUTPUT(Siam On a Quest.elf elf32-avr)
 LOAD linker stubs
 
 .debug_pubtypes
-                0x00000000       0x51
+                0x00000000       0x5c
  .debug_pubtypes
-                0x00000000       0x51 Siam On a Quest.o
+                0x00000000       0x5c Siam On a Quest.o
 
-.debug_ranges   0x00000000       0x60
- .debug_ranges  0x00000000       0x60 Siam On a Quest.o
+.debug_ranges   0x00000000       0x90
+ .debug_ranges  0x00000000       0x90 Siam On a Quest.o
