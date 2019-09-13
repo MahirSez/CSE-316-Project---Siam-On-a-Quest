@@ -120,13 +120,14 @@ void setGreenBars() {
 	for(int i =0 ; i < totGreenBar ; i++ ) {
 		if(i %3 == 0 ) bars[i].ro = 14;
 		else if(i %3 == 1 ) bars[i].ro = 10;
-		else if(i %3 == 2 ) bars[i].ro = 6;
+		else if(i %3 == 2 ) bars[i].ro = 8;
 		
-		if( i > 0  && i %3 == 1) bars[i].col = bars[i-1].col + bars[i-1].len  ;
-		else if( i > 0 && i%3 == 2) bars[i].col = bars[i-1].col + bars[i-1].len  ;
-		else if(i > 0 ) bars[i].col = bars[i-1].col + bars[i-1].len  ;
+		if(i > 0 && i%3 == 0) bars[i].col = bars[i-1].col + bars[i-1].len  ;
+		else if( i > 0  && i %3 == 1) bars[i].col = bars[i-1].col + bars[i-1].len +2 ;
+		else if( i > 0 && i%3 == 2) bars[i].col = bars[i-1].col + bars[i-1].len + 3 ;
 		
-		if(i %3 == 0 ) bars[i].len = 15;
+		
+		if(i %3 == 0 ) bars[i].len = 10;
 		else if(i %3 == 1 ) bars[i].len = 10;
 		else if(i %3 == 2 ) bars[i].len = 10;
 		
@@ -150,7 +151,7 @@ void setSiam() {
 	siam.baseRo = 2;
 	siam.baseCol = 1;
 	siam.jmpLeft = 0;
-	siam.lifeLeft = 5;
+	siam.lifeLeft = 7;
 }
 
 
@@ -371,24 +372,7 @@ void UpdateSiam() {
 	if(siam.lifeLeft == 0) return;
 	
 	jumpCheckSiam();
-	/*
-	int ok = 1;
-	for(int i =0 ; i < SIAM_HEIGHT ; i++ ) {
-		
-		if(pattern[siam.baseRo-i][siam.baseCol+1] == 3) {
-			ok = 0;
-		}
-	}
-	
-	if(pattern[siam.baseRo+1][siam.baseCol] == 3) {
-		ok = 0;
-	}
-	
-	if(ok==0)  {
-		killSiam();
-		recoverSiam();
-	}
-	*/
+
 	
 	for(int i =0 ; i < SIAM_HEIGHT; i ++ ) {
 		
