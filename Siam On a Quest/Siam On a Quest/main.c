@@ -153,7 +153,7 @@ void setSiam() {
 	siam.baseRo = 2;
 	siam.baseCol = 1;
 	siam.jmpLeft = 0;
-	siam.lifeLeft = 7;
+	siam.lifeLeft = 3;
 }
 
 
@@ -525,6 +525,7 @@ void printScore(int num)
 		pattern[15][15-i] = 2;
 		pattern[15-i][15] = 2;
 	}
+	
 	int r = 6, col = 3;
 	int mul = 100;
 	while(mul){
@@ -542,10 +543,11 @@ void printScore(int num)
 	}
 		
 	int cnt = 100;
+	
 	while(1){
 		printScreen();	
 	}
-
+	
 }
 
 void startScreen()
@@ -570,12 +572,14 @@ void startScreen()
 				pattern[r+i][col+j] = digit[step].ara[i][j];
 			}
 		}
-		int cnt = 200;
+		int cnt = 100;
+		buzzerSound();
 		while(cnt--){
+			//buzzerSound();
 			printScreen();
 		}	
 		step--;
-	}while(step>=0);
+	}while(step>0);
 	
 	memset(pattern,0,sizeof pattern);
 	
@@ -590,48 +594,50 @@ void startScreen()
 	
 	r = 5, col = 3;
 	
-	for(int i = 0; i < 5; i++){
-		for(int j = 0; j < 3; j++){
-			pattern[r+i][col+j] = digit[0].ara[i][j] ;
-		}
-	}
-	pattern[r+1][col+2] = 0;
-	pattern[r+2][col+1] = 1;
-	col += 4;
 	
-	for(int i = 0; i < 5; i++){
-		for(int j = 0; j < 3; j++){
-			pattern[r+i][col+j] = digit[0].ara[i][j] ;
-		}
-	}
+	pattern[r+0][col+0] = pattern[r][col+1] = pattern[r][col+2] = pattern[r][col+3] = 1;
+	pattern[r+1][col+0] = 1; // pattern[r][col+1] = pattern[r][col+2] = pattern[r][col+3] = 1;
+	pattern[r+2][col+0] = 1;// pattern[r+2][col+3]  = 1;
+	pattern[r+3][col+0] = pattern[r+3][col+2] = pattern[r+3][col+3] = 1; //pattern[r][col+3]  = 1;
+	pattern[r+4][col+0] = pattern[r+4][col+3] = 1;
+	pattern[r+5][col+0] = pattern[r+5][col+1] = pattern[r+5][col+2] = pattern[r+5][col+3] = 1;
 	
-	col += 5;
 	
-	for(int i = r; i <= r+2; i++){
-		pattern[i][col] = 1;
-	}
-	pattern[r+4][col] = 1;
+	col += 6;
 	
-	int cnt = 100;
+	pattern[r+0][col+0] = pattern[r][col+1] = pattern[r][col+2] = pattern[r][col+3] = 1;
+	pattern[r+1][col+0] = 1, pattern[r+1][col+3] = 1; // pattern[r][col+1] = pattern[r][col+2] = pattern[r][col+3] = 1;
+	pattern[r+2][col+0] = pattern[r+2][col+3]  = 1;
+	pattern[r+3][col+0] = 1, pattern[r+3][col+3] = 1; //pattern[r][col+3]  = 1;
+	pattern[r+4][col+0] = pattern[r+4][col+3] = 1;
+	pattern[r+5][col+0] = pattern[r+5][col+1] = pattern[r+5][col+2] = pattern[r+5][col+3] = 1;
 	
+
+	
+	int cnt;
+	
+	PORTB |= 0x04;
+	_delay_ms(500);
+	PORTB = 0;
+	
+	cnt = 50;
 	while(cnt--){
 		printScreen();
 	}
+	
+	//while(1);
 }
 
 int main()
 {
 	
 	portInit();	
-	/*
+	
 	setGreenBars();
 	setEnemies();
 	setSiam();
-	*/
-	
 	createDigit();
-	
-	/*
+	startScreen();
 	
 	while(1) {
 		
@@ -651,7 +657,7 @@ int main()
 		printScreen();
 		
 		if(siam.lifeLeft == 0 ) {
-			printScore(currentGreenBar);	
+			printScore(currentGreenBar*5);	
 			continue;
 		}
 		if(right_move_condition_found()) {
@@ -673,19 +679,8 @@ int main()
 		
 		
 	}
-	
-	for(int i = 0; i < 16; i++){
-		for(int j = 0; j < 16; j++) pattern[i][j] = 1;
-	}
-	
-	*/
-	
-	startScreen();
-	
-	while(1){
-		printScreen();
-	}
-	//printScore(983);
+		
+	//printScore(currentGreenBar);
 	
 	return 0;
 }
