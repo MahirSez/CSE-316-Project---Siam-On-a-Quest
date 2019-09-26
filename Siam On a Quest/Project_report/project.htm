@@ -1,0 +1,182 @@
+<html>
+<body style="background-color:FFFFFF;">
+
+<hr />
+<hr />
+<h1><a name="top">Siam on a Quest!</a></h1>
+<hr />
+<hr />
+<br/><br/>
+<br/><br/>
+
+<p><a href="#b_f"><p style="font-size:110%">A Brief Description</p></a></p>
+<a href="#r_e"><p style="font-size:110%">Required Equipments</p></a>
+<a href="#h_w"><p style="font-size:110%">How it works?</p></a>
+<a href="#b_d"><p style="font-size:110%">Block Diagram</p></a>
+<a href="#a_g"><p style="font-size:110%">Algorithm</p></a>
+<a href="#p_d"><p style="font-size:110%">Detailed Pin Diagram</p></a>
+<a href="#p_f"><p style="font-size:110%">Problems Faced</p></a>
+<a href="#p_g"><p style="font-size:110%">Group Members Information</p></a>
+<a href="#p_h"><p style="font-size:110%">Course Teacher</p></a>
+
+
+<br/><br/>
+<br/><br/>
+<hr />
+<h2><a name="b_f">A Brief Description</a></h2>
+<hr />
+<p style="font-size:120%">
+We have created an ATmega32-based game inspired by classic Super Mario Bros. The protagonist "Siam" will journey through the world and try to destroy as many obstacles as possible. 
+<br/> <br/>
+Four 8x8 bicolor LED matrices are used to display the game. Two IR sensors and one sound sensor are used to take input from the player!!!
+</p>
+
+<br/><br/>
+
+
+<hr />
+<h2><a name="r_e">Required Equipments</a></h2>
+<hr />
+<p style="font-size:120%">
+<ul>
+  <li><p style="font-size:120%">ATmega32 microcontroller</p></li>
+  <li><p style="font-size:120%">Two IR sensors
+  <!--
+    <ul>
+    <li><p style="font-size:110%">5V Fixed 1A Positive Power Supply Regulator</p></li>
+    <li><p style="font-size:110%">Registors</p></li>
+    <li><p style="font-size:110%">Capacitors</p></li>
+    <li><p style="font-size:110%">Diode</p></li>
+    <li><p style="font-size:110%">HEX Schmitt_Triggered Inverters</p></li>
+    </ul>
+   -->
+  </p></li>
+  <li><p style="font-size:120%">One sound sensor</p></li>
+  <li><p style="font-size:120%">Four 8x8 bicolor LED matrix</p></li>
+  <li><p style="font-size:120%">Two 4x16 Decoder </p></li>
+</ul>
+</p>
+<br/><br/>
+<br/><br/>
+
+
+<hr />
+<h2><a name="h_w">How it works?</a></h2>
+<hr />
+<p style="font-size:120%">
+In this project ATmega32 microcontroller is used for interfacting to various hardware peripherals. <br/><br/>
+
+The game is controlled by two IR obstacle sensors and one sound sensor. <br/><br/>
+
+One IR senor will shift the game scene to right and another will be used to control jump. <br/><br/>
+
+The sound sensor will detect sound above a fixed level and shoot a bullet accordingly.<br/><br/>
+
+There will be several obstacles to hinder Siam's journey. <br/><br/>
+
+Siam will lose a life whenever he falls through the ground. The game will restart if he has any life left. <br/><br/>
+
+A game score(which is proportional to the number of obstacles he passed) will be shown when Siam will lose all the lives.
+</p>
+<br/><br/>
+<br/><br/>
+
+
+<hr />
+<h2><a name="b_d">Block Diagram</a></h2>
+<hr />
+<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="block_d1.jpg" alt="pin diagram" align="top"  />
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+fig.1 Block Diagram
+</p>
+<br/><br/>
+<br/><br/>
+
+<hr />
+<h2><a name="a_g">Algorithm</a></h2>
+<hr />
+<br/><br/>
+<p style="font-size:120%">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.Start<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.IF IR.Right is true, the game will move right<br/> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.IF IR.Jump is true, Siam will take a leap<br/> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.IF Sound senor is true, Siam will shoot<br/> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.IF Siam falls through a level, life will decrease<br/> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.There will be some obstacles to hinder Siam's journey. Siam can shoot them or jump over them using the necessary controls.<br/> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.IF life >= 0 , go to step 2<br/> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.Game is over <br/> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.A score will be shown <br/> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16.End<br/>
+</p>
+     
+
+<br/><br/>
+<br/><br/>
+
+<hr />
+<h2><a name="p_d">Detailed Pin Diagram</a></h2>
+<hr />
+<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="pin_d.jpg" alt="pin diagram" align="top" width="720" height="720" />
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+fig.2 Circuit Diagram
+</p>
+<br/><br/>
+<br/><br/>
+
+</body>
+</html>
+
+<br/><br/>
+<br/><br/>
+
+
+<hr />
+<h2><a name="p_f">Problems Faced</a></h2>
+<hr />
+
+<ol>
+  <li><p style="font-size:120%">The project hardwares were costly.</p></li>
+   
+  <li><p style="font-size:120%">Hardwares are unpredictable.Working circuit was out of order overnight.</p></li>
+    
+  <li><p style="font-size:120%">Tuning the sound sensor to desired Intensity was a hard nut to crack.</p></li>
+
+  <li><p style="font-size:120%">We also had some power issues.Voltage was dropping rapidly.</p></li>
+  
+  <li><p style="font-size:120%">As we used four LED matrices, the circuit got way too complicated. There were so many wires and it was almost impossible to trace any connection problem .That is why we had to rebuild from scratch to debug. </p></li>
+  
+</ol>
+</p>
+<br/><br/>
+<br/><br/>
+
+<hr />
+<h2><a name="p_g">Group Members Information</a></h2>
+<hr />
+<h3><p style="font-size:120%">Section A1:</p></h3>
+<ul>
+  <li><p style="font-size:120%">Bishwajit Bhattacharjee (1605003)</p></li>
+  <li><p style="font-size:120%">Ajmain Yasar Ahmed Sahil (1605023)</p></li>
+  <li><p style="font-size:120%">Md.Mahir Shahriyar Sezan (1605024)</p></li>
+</ul>
+<br/><br/>
+<br/><br/>
+
+<hr />
+<h2><a name="p_h">Course Teachers</a></h2>
+<hr />
+<ol>
+  <li><p style="font-size:120%">Md. Tareq Mahmood</p></li>
+  <li><p style="font-size:120%">Md. Masum Mushfiq</p></li>
+  
+</ol>
+
+<br/><br/>
+<br/><br/>
+
+<a href="#top"><p style="font-size:110%">Back to top</p></a>
